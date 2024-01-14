@@ -4,7 +4,7 @@
  */
 package span
 /*
- * Sequential point sequence operator.
+ * Sequential point operator.
  */
 func Last(src []byte, ofs int, len int, ch byte) (spx int) {
 	/*
@@ -24,7 +24,7 @@ func Last(src []byte, ofs int, len int, ch byte) (spx int) {
 	return spx
 }
 /*
- * Sequential point sequence operator.
+ * Sequential point operator.
  */
 func First(src []byte, ofs int, len int, ch byte) (spx int) {
 	/*
