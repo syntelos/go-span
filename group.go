@@ -47,3 +47,51 @@ func Reverse(src []byte, ofs int, len int, lhs byte, rhs byte) int {
 	}
 	return -1
 }
+/*
+ * Group code resolver.
+ */
+func GroupRhs(lhs byte) byte {
+	switch lhs {
+	case '(':
+		return ')'
+	case '<':
+		return '>'
+	case '[':
+		return ']'
+	case '{':
+		return '}'
+	default:
+		return 0
+	}
+}
+/*
+ * Nested group operator.
+ */
+func Group(src []byte, ofs int, len int, lhs byte) int {
+
+	var rhs byte = GroupRhs(lhs)
+	if 0 != rhs && lhs == src[ofs] {
+		var index, depth int = ofs, 0
+
+		for ; index < len; index++ {
+			var ch byte = src[index]
+
+			if lhs == ch {
+
+				depth += 1
+
+			} else if rhs == ch {
+
+				if 1 < depth {
+
+					depth -= 1
+
+				} else if 1 == depth {
+
+					return index
+				}
+			}
+		}
+	}
+	return -1
+}

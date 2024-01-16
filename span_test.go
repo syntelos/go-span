@@ -9,7 +9,8 @@ import (
 	"testing"
 )
 
-func TestXMLP(t *testing.T){
+func TestSequentialGroup(t *testing.T){
+	fmt.Println("[TestSequentialGroup]")
 	var xml []byte = []byte(`<?xml version="1.0" standalone="no"?>
 <?xml-stylesheet href="https://cdn.jsdelivr.net/gh/aaaakshat/cm-web-fonts@latest/fonts.css" type="text/css"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -36,11 +37,23 @@ func TestXMLP(t *testing.T){
 		if first < last {
 			var begin, end int = first, (last+1)
 			var span []byte = xml[begin:end]
-			fmt.Printf("\t[%05o,%05o]\t%s\n",first,last,string(span))
+			fmt.Printf("[TestSequentialGroup]\t[%05o,%05o]\t%s\n",first,last,string(span))
 			ofs = end
 		} else {
 			ofs += 1
 		}
 	}
 
+}
+
+func TestNestedGroup(t *testing.T){
+	fmt.Println("[TestNestedGroup]")
+	var sexp []byte = []byte("(a (b c) (d (e f)))")
+	var ofs, len int = 0, len(sexp)
+	for ; ofs < len; ofs++ {
+		var open, close int = ofs, Group(sexp,ofs,len,'(')
+		if open < close {
+			fmt.Printf("[TestNestedGroup]\t[%05o,%05o]\t%s\n",open,close,string(sexp[open:close+1]))
+		}
+	}
 }
