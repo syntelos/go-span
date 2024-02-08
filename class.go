@@ -51,9 +51,26 @@ func XA (ch byte) (bool) {
         }
 }
 /*
+ * Generic identifier character class.
+ */
+func GI (ch byte) (bool) {
+        switch {
+        case 'a' <= ch && 'z' >= ch :
+                return true
+        case 'A' <= ch && 'Z' >= ch :
+                return true
+        case '0' <= ch && '9' >= ch :
+                return true
+        case '_' == ch || '-' == ch || '+' == ch || '.' == ch :
+                return true
+        default:
+                return false
+        }
+}
+/*
  * XML Identifier character class.
  */
-func ID (ch byte) (bool) {
+func XI (ch byte) (bool) {
         switch {
         case 'a' <= ch && 'z' >= ch :
                 return true
